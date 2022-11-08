@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="warn" monitorInterval="30">
+  
+	<Appenders>
+	
+
+		
+		<Console name="StdERROR" target="SYSTEM_ERR">
+			<PatternLayout pattern="ERROR: %msg%n" />
+		</Console>
+		
+		<Console name="StdOut" target="SYSTEM_OUT">
+			<Filters>
+				<ThresholdFilter level="INFO"/>
+				<ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+			</Filters>
+			<PatternLayout pattern="%msg%n" />
+		</Console>
+		
+		<File name="ErrLog" filename="error.log" append="false">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		
+		<File name="SimInfoLog" filename="sim.log" append="false">
+			<PatternLayout
+				pattern="%msg %d{HH:mm:ss.SSS}%n" />
+		</File>
+		
+		<File name="SimActionLog" filename="sim.log" append="false">
+			<PatternLayout
+				pattern="%msg %n" />
+		</File>
+
+	</Appenders>
+
+
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="StdOut" />
+		</Root>
+	
+		<Logger name="ErrorLogger" level="error">
+			<AppenderRef ref="ErrLog" />
+		</Logger>
+		
+		<Logger name="InfoLogger" level="trace" additivity="true">
+			<AppenderRef ref="SimInfoLog" />
+		</Logger>
+		
+		
+		
+		<Logger name="ActionLogger" level="trace" additivity="true">
+			<AppenderRef ref="SimActionLog" />
+		</Logger>
+		
+		<!-- TODO: Add the system out/err stuff here -->
+		
+		
+	</Loggers>
+
+</Configuration>
